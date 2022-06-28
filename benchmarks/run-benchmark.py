@@ -19,7 +19,7 @@
 import argparse
 from scripts.benchmarks import *
 
-delta_version = "1.0.0"
+delta_version = "1.2.0"
 hudi_version = "0.11.1"
 
 # Benchmark name to their specifications. See the imported benchmarks.py for details of benchmark.

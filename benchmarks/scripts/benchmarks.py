@@ -192,7 +192,7 @@ class HudiBenchmarkSpec(BenchmarkSpec):
 
     @staticmethod
     def hudi_maven_artifacts(hudi_version, scala_version):
-        return f"org.apache.hudi:hudi-spark3.1-bundle_{scala_version}:{hudi_version}"
+        return f"org.apache.hudi:hudi-spark3.2-bundle_{scala_version}:{hudi_version}"
 
 
 class HudiTPCDSDataLoadSpec(TPCDSDataLoadSpec, HudiBenchmarkSpec):
