@@ -124,6 +124,9 @@ class TPCDSDataLoad(conf: TPCDSDataLoadConf) extends Benchmark(conf) {
           df.where(s"${partitionKeys.head} IS NOT NULL")
         }
 
+        // Drop the SQL table from the catalog if exists
+        spark.sql(s"DROP TABLE IF EXISTS $fullTableName").show
+
         val before = System.nanoTime()
         filteredDF.write.format("hudi").
           option("hoodie.datasource.write.precombine.field", "").
@@ -146,6 +149,16 @@ class TPCDSDataLoad(conf: TPCDSDataLoadConf) extends Benchmark(conf) {
           save(targetLocation)
         val after = System.nanoTime()
         val durationMs = (after - before) / (1000 * 1000)
+
+        // Create SQL table in the catalog, that was written via
+        // Spark Datasource
+        spark.sql(
+          s"""
+             |CREATE TABLE $fullTableName
+             |USING HUDI
+             |LOCATION '$targetLocation'
+             |""".stripMargin).show
+
         queryResults += QueryResult(s"ds-create-table-$tableName", Some(1), Some(durationMs), errorMsg = None)
         log(s"END took $durationMs ms: ds-create-table-$tableName-iteration-1")
         log("=" * 80)
