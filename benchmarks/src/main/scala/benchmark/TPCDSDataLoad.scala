@@ -138,6 +138,7 @@ class TPCDSDataLoad(conf: TPCDSDataLoadConf) extends Benchmark(conf) {
           option("hoodie.bulkinsert.sort.mode", "NONE").
           option("hoodie.parquet.compression.codec", "snappy").
           option("hoodie.parquet.writelegacyformat.enabled", "false").
+          option("hoodie.metadata.enable", "false").
           option("hoodie.populate.meta.fields", "false").
           option("hoodie.parquet.max.file.size", "141557760"). // 135Mb
           option("hoodie.parquet.block.size", "141557760"). // 135Mb
@@ -175,6 +176,7 @@ class TPCDSDataLoad(conf: TPCDSDataLoadConf) extends Benchmark(conf) {
              | 'hoodie.bulkinsert.sort.mode' = 'NONE',
              | 'hoodie.parquet.max.file.size' = '141557760',
              | 'hoodie.parquet.block.size' = '141557760',
+             | 'hoodie.metadata.enable' = 'false',
              | 'hoodie.parquet.writelegacyformat.enabled' = 'false'
              |)
              |""".stripMargin
