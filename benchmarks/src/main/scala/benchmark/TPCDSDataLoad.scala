@@ -238,12 +238,12 @@ object TPCDSDataLoad {
 
 
   val tableColumnSchemas = Map(
-    /*"dbgen_version" -> """
+    "dbgen_version" -> """
     dv_version                varchar(16)                   ,
     dv_create_date            date                          ,
     dv_create_time            time                          ,
     dv_cmdline_args           varchar(200)
-""",*/
+""",
     "call_center" -> """
     cc_call_center_sk         integer               not null,
     cc_call_center_id         char(16)              not null,
@@ -722,7 +722,7 @@ object TPCDSDataLoad {
   )
 
   val tablePrimaryKeys = Map(
-    // "dbgen_version" -> Seq(""),
+    "dbgen_version" -> Seq(""),
     "call_center" -> Seq("cc_call_center_sk"),
     "catalog_page" -> Seq("cp_catalog_page_sk"),
     "catalog_returns" -> Seq("cr_item_sk", "cr_order_number"),
@@ -749,19 +749,8 @@ object TPCDSDataLoad {
     "web_site" -> Seq("web_site_sk")
   )
 
-  /* TODO: move this to runInternal()
-      
-  val dbName = "tpcds_sf3000_hudi"
-  spark.sql(s"use $dbName")
-  tableNamesTpcds.foreach(tableName => {
-    val hudiTablePath = s"s3://sagars-devlake/TPC-DS/3TB/hudi-0-11-1/all-ds/databases/tpcds_sf3000_hudi_20220620_152430_tpcds_3tb_hudi_load/$tableName/"
-    val createTableSql = s"create table $tableName USING HUDI LOCATION '$hudiTablePath'"
-    spark.sql(s"drop table if exists $tableName")
-    spark.sql(createTableSql)
-  })*/
-
   val tablePartitionKeys = Map(
-    // "dbgen_version" -> Seq(""),
+    "dbgen_version" -> Seq(""),
     "call_center" -> Seq(""),
     "catalog_page" -> Seq(""),
     "catalog_returns" -> Seq("cr_returned_date_sk"),
